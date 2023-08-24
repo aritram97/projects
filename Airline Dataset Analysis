@@ -1,1 +1,38 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
+# Step 2: Load the CSV file into a Pandas DataFrame
+data = pd.read_csv('flights.csv')
+
+# Step 3: Process and clean the data (if needed)
+# Assuming the CSV has columns 'Month', 'Airline1', 'Airline2', ... for each airline
+
+# Step 4: Plot monthly passenger traffic trends for each airline
+plt.figure(figsize=(10, 6))
+
+# Iterate over each airline's data
+for airline_column in data.columns[1:]:
+    plt.plot(data['Month'], data[airline_column], label=airline_column)
+
+plt.title('Monthly Passenger Traffic for Each Airline')
+plt.xlabel('Month')
+plt.ylabel('Passenger Count')
+plt.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# Step 5: Plot overall monthly passenger traffic trend for all airlines combined
+plt.figure(figsize=(10, 6))
+
+# Calculate the total passenger count for each month
+data['Total'] = data.iloc[:, 1:].sum(axis=1)
+
+plt.plot(data['Month'], data['Total'], color='b', marker='o')
+plt.title('Overall Monthly Passenger Traffic for All Airlines Combined')
+plt.xlabel('Month')
+plt.ylabel('Total Passenger Count')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
